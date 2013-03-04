@@ -1,0 +1,11 @@
+{
+  "name": "thepngproject",
+  "version": "0.2.0",
+  "description": "The PNG Project",
+  "author": "Pierre-Élie Fauché",
+  "homepage": "http://thepngproject.com",
+  "dependencies": {
+    "grunt": ">=0.4.0",
+    "grunt-contrib": ">=0.4.0"
+  }
+}
