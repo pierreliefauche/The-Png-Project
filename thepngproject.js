@@ -30,3 +30,10 @@ window.tpp = {};
   };
 
 })(window.tpp);
+
+// $(document).on("click", "#tpp-button", function(e){
+//   e.preventDefault();
+//   e.stopPropagation();
+//   window.tpp.trigger();
+//   return false;
+// });

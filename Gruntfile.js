@@ -15,7 +15,7 @@ module.exports = function(grunt) {
       },
       script: {
         // the files to concatenate
-        src: ['extensions/vendor/rgbcolor.js', 'extensions/vendor/canvg.js', 'extensions/thepngproject.js'],
+        src: ['vendor/rgbcolor.js', 'vendor/canvg.js', 'thepngproject.js'],
         // the location of the resulting JS file
         dest: 'build/thepngproject.js'
       }
@@ -32,12 +32,57 @@ module.exports = function(grunt) {
       }
     },
 
-    bookmarklet: {
-      build: {
+    replace: {
+      bookmarklet: {
         src: 'extensions/bookmarklet.js',
         dest: 'build/bookmarklet.js',
+        placeholder: '{{SCRIPT_URL}}',
+        replacement: '<%= pkg.homepage %>/thepngproject.js'
+      },
+      extension: {
+        src: 'extensions/extension.js',
+        dest: 'build/extension.js',
+        placeholder: '{{SCRIPT_URL}}',
+        replacement: '<%= pkg.homepage %>/thepngproject.js'
+      }
+    },
 
-        scriptUrl: '<%= pkg.homepage %>/thepngproject.js'
+    copy: {
+      chrome: {
+        expand: true,
+        cwd: 'extensions/thepngproject.crx',
+        src: ['**'],
+        dest: 'build/thepngproject.crx/'
+      },
+      chromeScript: {
+        expand: true,
+        cwd: 'build',
+        src: 'extension.js',
+        dest: 'build/thepngproject.crx/'
+      },
+      safari: {
+        expand: true,
+        cwd: 'extensions/thepngproject.safariextension',
+        src: ['**'],
+        dest: 'build/thepngproject.safariextension/'
+      },
+      safariScript: {
+        expand: true,
+        cwd: 'build',
+        src: 'extension.js',
+        dest: 'build/thepngproject.safariextension/'
+      },
+      firefox: {
+        expand: true,
+        cwd: 'extensions/thepngproject.firefoxextension',
+        src: ['**'],
+        dest: 'build/thepngproject.firefoxextension/'
+      },
+      firefoxScript: {
+        expand: true,
+        cwd: 'build',
+        src: 'extension.js',
+        dest: 'build/thepngproject.firefoxextension/data/'
       }
     }
 
@@ -46,7 +91,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib');
   grunt.loadTasks('tasks');
 
-  grunt.registerTask("build", ['clean', 'bookmarklet', 'concat', 'uglify']);
+  grunt.registerTask("build", ['clean', 'replace', 'concat', 'uglify', 'copy']);
 
   grunt.registerTask("default", "build");
 };
