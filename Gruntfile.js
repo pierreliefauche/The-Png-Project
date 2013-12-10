@@ -15,7 +15,7 @@ module.exports = function(grunt) {
       },
       script: {
         // the files to concatenate
-        src: ['vendor/rgbcolor.js', 'vendor/canvg.js', 'thepngproject.js'],
+        src: ['vendor/rgbcolor.js', 'vendor/canvg.js', '<%= replace.script.dest %>'],
         // the location of the resulting JS file
         dest: 'build/thepngproject.js'
       }
@@ -44,6 +44,12 @@ module.exports = function(grunt) {
         dest: 'build/extension.js',
         placeholder: '{{SCRIPT_URL}}',
         replacement: '<%= pkg.homepage %>/thepngproject.js'
+      },
+      script: {
+        src: 'thepngproject.js',
+        dest: 'build/thepngproject.js',
+        placeholder: '{{HOST}}',
+        replacement: '<%= pkg.homepage %>'
       }
     },
 
